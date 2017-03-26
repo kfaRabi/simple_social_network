@@ -23,14 +23,14 @@
   </head>
 
   <body>
-
+<div id="root">
     @include('layouts.nav')
 
     @yield('status_form')
 
-    <div class="container">
+    <div class="container" >
      
-      <div class="row" id="root">
+      <div class="row">
 
           <div class="col-md-9 blog-main">
 
@@ -45,7 +45,7 @@
       </div>
 
     </div>
-
+</div>
     @include('layouts.footer');
   <script src="/js/moment.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -20,7 +20,7 @@ Vue.component('single-post',{
 			  	&nbsp
 			  	<a :href="url" class="no-textdec">
 				  	<span class="pull-right" >
-				  		View Full Post
+				  		Visit Post Page
 				  		<span class="glyphicon glyphicon-chevron-right"></span>
 				  	</span>
 			  	</a>
@@ -104,10 +104,12 @@ Vue.component('posts-list',{
 new Vue({
     el: '#root',
     data: {
-        showoform: true,
+        showform: true,
         posts: [],
         carbon_strings: [],
         link: '',
+        showerrors: true,
+        keepshowing: true,
     },
     
     methods: {
@@ -128,8 +130,13 @@ new Vue({
     		console.log(window.location.href);
     	},
     	hideForm(){
+    		// console.log(this.showform);
     		this.showform = false;
+    		// console.log(this.showform);
     	},
+    	stopShowingMessage(){
+    		this.keepshowing = false; 
+    	}
     },
 
     computed: {
@@ -141,6 +148,6 @@ new Vue({
     	setInterval(function () {
 	     	this.getAllPosts();
 	     	// console.log(this.posts.comments[0].count);
-	    }.bind(this), 5000000);
+	    }.bind(this), 10000);
     },
     });

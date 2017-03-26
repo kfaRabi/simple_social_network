@@ -33,7 +33,7 @@ class SessionsController extends Controller
         if(! auth()->attempt(request(['email', 'password']))){
             return back()->withErrors(['message' => 'Login credentials do not match']);
         }
-        return redirect()->home();
+        return redirect()->back();
     }
 
     /**

@@ -5,6 +5,7 @@ Route::get('/', 'PostsController@index')->name('home');
 Route::get('/posts/create', 'PostsController@create');
 Route::post('/posts', 'PostsController@store');
 Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/posts/{post}/delete', 'PostsController@destroy');
 
 Route::get('/all-posts', 'PostsController@getAllPosts');
 // Route::get('/all-posts', function(){

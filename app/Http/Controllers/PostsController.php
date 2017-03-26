@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('auth')->only(['store']);
+        $this->middleware('auth')->only(['store', 'destroy']);
     }
 
     /**
@@ -99,7 +99,7 @@ class PostsController extends Controller
             new Post(request(['body']))
         );
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     public function getAllPosts(){
@@ -165,6 +165,15 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if(auth()->check() && $post->user_id == auth()->user()->id){
+            $post->delete();
+            session()->flash('message', ['Your post wass successfully deleted', 'success']);
+            return redirect('/');
+        }
+        else{
+            session()->flash('message', ['Sorry, You have to be the owner of the post to delete it','warning']);
+            return redirect()->back();
+        }
+
     }
 }
