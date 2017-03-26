@@ -1,8 +1,11 @@
 
 Vue.component('single-post',{
 	
-	// props: ['id', 'title', 'username', 'createdat', 'body'],
 	props: ['url', 'userid'],
+
+	data(){
+		return {comments_url: ''};
+	},
 
 	template: `
 		<div class="panel panel-primary">
@@ -14,11 +17,11 @@ Vue.component('single-post',{
 			    <slot name = "body">Dummy Body Text</slot>
 			 </div>
 			  <div class="panel-footer">
-			  	<a :href="url" class="no-textdec">
+			  	<a :href="comments_url" class="no-textdec">
 			  		<span class="glyphicon glyphicon-comment"></span>&nbsp<span><slot name="number_of_comments">0 Comment</slot></span>
 			  	</a>
 			  	&nbsp
-			  	<a :href="url" class="no-textdec">
+			  	<a :href='url' class="no-textdec">
 				  	<span class="pull-right" >
 				  		Visit Post Page
 				  		<span class="glyphicon glyphicon-chevron-right"></span>
@@ -27,17 +30,10 @@ Vue.component('single-post',{
 			  </div>
 		</div>
 	`,
-// <div class="blog-post">
-// 			<h2 class="blog-post-title"><a :href="url"><slot name = "title"></slot></a></h2>
-// 			<p class="blog-post-meta"><slot name = "username"></slot> on <slot name = "createdat"></slot></p>
 
-// 			<p>
-// 				<slot name = "body"></slot>
-// 			</p>
-// 		</div>
-	//methods: {
-	//
-	//}
+	mounted(){
+		this.comments_url = this.url + "#comments_here";
+	}
 
 });
 
@@ -51,55 +47,16 @@ Vue.component('posts-list',{
 	</div>
 	`,
 
-	data(){
-		return {
-			// posts: [],
-			// url: '/posts/1',
-		};
-	},
-
 	methods: {
 		//
 	},
 
 	created() {
-		// this.posts = [
-		// 	{id: 2, title: "Some Title 1", body: "Some Dummy Body 1", created_at: "Something", username: "user"},
-		// 	// {id: 3, title: "Some Title 2", body: "Some Dummy Body 2"},
-		// 	// {id: 7, title: "Some Title 3", body: "Some Dummy Body 3"},
-		// 	// {id: 5, title: "Some Title 4", body: "Some Dummy Body 4"},
-		// ];
-		// this.posts = [];
-		// axios.get('/all-posts')
-		//   .then(function (response) {
-		//     console.log(response.data[0]);
-		//     this.posts = response.data;
-		//     console.log(this.posts[0].user.name);
-		//   })
-		//   .catch(function (error) {
-		//     console.log(error);
-		//   });
 
-
-		// this.id = 3;
-		// console.log(this.posts, this.id);
 	},
 
 });
 
-// var vapp = new Vue({
-// 	el: "#hideshowform",
-// 	data: {
-//         showform: true,
-//         showerror: true,
-//     },
-    
-//     methods: {
-//     	hideForm(){
-//     		this.showform = false;
-//     	},
-//     },
-// });
 
 new Vue({
     el: '#root',
@@ -118,6 +75,7 @@ new Vue({
     		if(this.link.includes("userid")){
     			var pos = this.link.indexOf("?", 10);
     			this.link = "/all-posts/" + this.link.substring(pos, this.link.length);
+    			this.showform = false;
     		}
     		else{
     			this.link = "/all-posts";
@@ -126,13 +84,14 @@ new Vue({
     	},
     	getAllPosts(){
     		this.getLink();
-    		axios.get(this.link).then(response => {this.posts = response.data[0]; this.carbon_strings = response.data[1]; });
-    		console.log(window.location.href);
+    		axios.get(this.link).then(response => {
+    			this.posts = response.data[0];
+    			this.carbon_strings = response.data[1];
+    		});
+    		// console.log(window.location.href);
     	},
     	hideForm(){
-    		// console.log(this.showform);
     		this.showform = false;
-    		// console.log(this.showform);
     	},
     	stopShowingMessage(){
     		this.keepshowing = false; 
@@ -147,7 +106,6 @@ new Vue({
     	this.getAllPosts();
     	setInterval(function () {
 	     	this.getAllPosts();
-	     	// console.log(this.posts.comments[0].count);
-	    }.bind(this), 10000);
+	    }.bind(this), 10000000);
     },
-    });
+});

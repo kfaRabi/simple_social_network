@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('auth')->only(['store', 'destroy']);
+        $this->middleware('auth')->only(['store', 'destroy','edit', 'update']);
     }
 
     /**
@@ -51,7 +51,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        //return view('posts.create');
     }
 
     /**
@@ -142,7 +142,13 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        if(auth()->check() && auth()->user()->id == $post->user_id){
+            return view('posts.edit',compact('post'));
+        }
+        else{
+            session()->flash('message', ['You don not have the permissons to edit this post', 'danger']);
+            return redirect('/posts/'.$post->id);
+        }
     }
 
     /**
@@ -152,9 +158,23 @@ class PostsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Post $post)
     {
-        //
+
+        $this->validate(request(),[
+                'body' => 'required|min:5'
+            ]);
+
+        if(auth()->check() && auth()->user()->id == $post->user_id){
+            $post->body = request('body');
+            $post->save();
+            session()->flash('message', ['Your post has been successfully updated', 'success']);
+            return redirect('/posts/'.$post->id);
+        }
+        else{
+            session()->flash('message', ['You don not have the permissons to edit this post', 'danger']);
+            return redirect('/posts/'.$post->id);
+        }
     }
 
     /**
@@ -166,6 +186,7 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         if(auth()->check() && $post->user_id == auth()->user()->id){
+            $post->comments()->delete();
             $post->delete();
             session()->flash('message', ['Your post wass successfully deleted', 'success']);
             return redirect('/');
@@ -174,6 +195,5 @@ class PostsController extends Controller
             session()->flash('message', ['Sorry, You have to be the owner of the post to delete it','warning']);
             return redirect()->back();
         }
-
     }
 }

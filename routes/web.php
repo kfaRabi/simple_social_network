@@ -2,10 +2,11 @@
 
 
 Route::get('/', 'PostsController@index')->name('home');
-Route::get('/posts/create', 'PostsController@create');
 Route::post('/posts', 'PostsController@store');
 Route::get('/posts/{post}', 'PostsController@show');
 Route::get('/posts/{post}/delete', 'PostsController@destroy');
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::post('/posts/{post}/update', 'PostsController@update');
 
 Route::get('/all-posts', 'PostsController@getAllPosts');
 // Route::get('/all-posts', function(){

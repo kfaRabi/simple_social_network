@@ -1,5 +1,6 @@
+@if(sizeof($post->comments))
 <hr>
-<div class="comments">
+<div class="comments" id="comments_here">
 	<ul class="list-group">
 		<li class="list-group-item active">Comments</li>
 		@foreach ($post->comments->sortByDesc('created_at') as $comment)
@@ -11,3 +12,4 @@
 		@endforeach
 	</ul>
 </div>
+@endif
