@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<h1 class="label label-primary">Register</h1>
+<h1 class="label label-primary custom-heading">Register</h1>
 
 <hr>
 

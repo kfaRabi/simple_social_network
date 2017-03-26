@@ -11,10 +11,12 @@
     <title>Blog Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 
     <!-- Custom styles for this template -->
     <link href="/css/blog.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 
     {{-- <link rel="stylesheet" href="/css/bulma.css"> --}}
 
@@ -24,14 +26,14 @@
 
     @include('layouts.nav')
 
-    @yield('blog_header')
+    @yield('status_form')
 
     <div class="container">
      
       <div class="row" id="root">
 
-          <div class="col-sm-8 blog-main">
-            
+          <div class="col-md-9 blog-main">
+
             @yield('content')
           
           </div>
@@ -45,10 +47,13 @@
     </div>
 
     @include('layouts.footer');
-
+  <script src="/js/moment.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src = "https://unpkg.com/vue"></script>
   <script src = "/js/app.js"></script>
+  <script>
+    // alert(moment());
+  </script>
   </body>
 
 </html>

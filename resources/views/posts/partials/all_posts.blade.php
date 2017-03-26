@@ -9,11 +9,13 @@
  	</single-post> --}}
  	{{-- @{{posts}} --}}
  	<posts-list>
-		<single-post v-for="post in posts" :url= '"/posts/" + post.id'>
-			<template slot="title"> @{{post.title}} </template>
+		<single-post v-for="(post, ind) in posts" :url= '"/posts/" + post.id' :userid= '"/?userid=" + post.user.id'>
 			<template slot="username"> @{{post.user.name}} </template>
-			<template slot="createdat"> @{{post.created_at}} </template>
-			<template slot="body"> @{{post.body}} </template>
+			<template slot="createdat"> @{{carbon_strings[ind]}} </template>
+			<template slot="body"> @{{post.body.substring(0, 200)}} 
+				<a :href='"/posts/" + post.id' v-if="post.body.length > 200">(more...)</a>
+			</template>
+			<template v-if="post.comments.length" slot="number_of_comments"> @{{post.comments[0].count + " Comments"}} </template>
 		</single-post>
  	</posts-list>
  </div>

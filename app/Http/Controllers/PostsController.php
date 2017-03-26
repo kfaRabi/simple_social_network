@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('auth')->only('create');
+        $this->middleware('auth')->only(['store']);
     }
 
     /**
@@ -20,6 +20,7 @@ class PostsController extends Controller
      */
     public function index()
     {
+        // return $this->getAllPosts();
         // dd(Post::with(['user' => function($query){
         //     $query->addSelect(['id', 'name']);
         // }])->get());
@@ -67,7 +68,6 @@ class PostsController extends Controller
         
 
         $this->validate(request(), [
-            'title' => 'required',
             'body' => 'required'
         ]);
 
@@ -96,19 +96,29 @@ class PostsController extends Controller
 
 
         auth()->user()->publish(
-            new Post(request(['title', 'body']))
+            new Post(request(['body']))
         );
-
-
 
         return redirect('/');
     }
 
     public function getAllPosts(){
         // return ['A', 'B'];
-        return Post::latest()->filter(request(['month', 'year']))->with(['user' => function($query){
+        $posts = Post::latest()
+                ->filter(request(['userid']))
+                ->with(['user' => function($query){
                     $query->addSelect(['id', 'name']);
-                }])->get();
+                }])
+                ->with(['comments' => function($query){
+                    $query->selectRaw('post_id, count(*) as count')->groupBy('post_id');
+                }])
+                ->get();
+        // return $posts;
+        $carbon_strings = array();;
+        foreach ($posts as $post) {
+            array_push($carbon_strings, $post->created_at->diffForHumans());
+        }
+        return [$posts, $carbon_strings];
     }
 
     /**

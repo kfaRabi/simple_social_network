@@ -21,22 +21,20 @@ class Post extends Model
     //not using it
     public function addComment($body){
     	// $this->comments()->create(['body' => $body]);
-    	$this->comments()->create(compact('body'));
+        $user_id = auth()->id();
+    	$this->comments()->create(compact('body', 'user_id'));
     }
 
     public function scopeFilter($query, $filters){
-        if($month = $filters['month']){
-            $query->whereMonth('created_at' , Carbon::parse($month)->month);
-        }
-        if($year = $filters['year']){
-            $query->whereYear('created_at' , $year);
+        if($userid = $filters['userid']){
+            $query->where('user_id' , $userid);
         }
    }
 
-   public static function archaives(){
-        return Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) count')
-        ->groupBy('year', 'month')
-        ->orderByRaw('min(created_at) desc')
+   public static function postsGroupedByMembers(){
+        return Post::selectRaw('user_id, count(*) count')
+        ->groupBy('user_id')
+        ->orderByRaw('user_id desc')
         ->get();
    }
 

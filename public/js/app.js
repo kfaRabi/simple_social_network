@@ -1,38 +1,40 @@
-Vue.component('blog-header',{
-	
-	//props: [],
-
-	template: `
-		<div class="blog-header">
-	      <div class="container">
-	        <h1 class="blog-title"><slot name="title"> My First Blog </slot></h1>
-	        <p class="lead blog-description"><slot>An example blog template built with Bootstrap.</slot></p>
-	      </div> 
-	    </div>
-	`,
-
-	//methods: {
-	//
-	//}
-
-});
 
 Vue.component('single-post',{
 	
 	// props: ['id', 'title', 'username', 'createdat', 'body'],
-	props: ['url'],
+	props: ['url', 'userid'],
 
 	template: `
-		<div class="blog-post">
-			<h2 class="blog-post-title"><a :href="url"><slot name = "title"></slot></a></h2>
-			<p class="blog-post-meta"><slot name = "username"></slot> on <slot name = "createdat"></slot></p>
-
-			<p>
-				<slot name = "body"></slot>
-			</p>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+			    <h3 class="panel-title force-inline"><a class="add-textdec" :href="userid"><slot name = "username">Dummy Name</slot></a></h3>
+			    <span class="post-meta pull-right"><slot name = "createdat">Date Not Found</slot></span>
+			 </div>
+			 <div class="panel-body">
+			    <slot name = "body">Dummy Body Text</slot>
+			 </div>
+			  <div class="panel-footer">
+			  	<a :href="url" class="no-textdec">
+			  		<span class="glyphicon glyphicon-comment"></span>&nbsp<span><slot name="number_of_comments">0 Comment</slot></span>
+			  	</a>
+			  	&nbsp
+			  	<a :href="url" class="no-textdec">
+				  	<span class="pull-right" >
+				  		View Full Post
+				  		<span class="glyphicon glyphicon-chevron-right"></span>
+				  	</span>
+			  	</a>
+			  </div>
 		</div>
 	`,
+// <div class="blog-post">
+// 			<h2 class="blog-post-title"><a :href="url"><slot name = "title"></slot></a></h2>
+// 			<p class="blog-post-meta"><slot name = "username"></slot> on <slot name = "createdat"></slot></p>
 
+// 			<p>
+// 				<slot name = "body"></slot>
+// 			</p>
+// 		</div>
 	//methods: {
 	//
 	//}
@@ -85,23 +87,24 @@ Vue.component('posts-list',{
 
 });
 
-var vapp = new Vue({
-	el: "#test",
+// var vapp = new Vue({
+// 	el: "#test",
 
-});
+// });
 
 new Vue({
     el: '#root',
     data: {
-        working: "yes",
+        showmindform: true,
         posts: [],
+        carbon_strings: [],
         link: '',
     },
     
     methods: {
     	getLink(){
     		this.link = window.location.href;
-    		if(this.link.includes("month") || this.link.includes("year")){
+    		if(this.link.includes("userid")){
     			var pos = this.link.indexOf("?", 10);
     			this.link = "/all-posts/" + this.link.substring(pos, this.link.length);
     		}
@@ -112,18 +115,26 @@ new Vue({
     	},
     	getAllPosts(){
     		this.getLink();
-    		axios.get(this.link).then(response => this.posts = response.data);
+    		axios.get(this.link).then(response => {this.posts = response.data[0]; this.carbon_strings = response.data[1]; });
     		console.log(window.location.href);
+    	},
+    	hideForm(){
+    		console.log(this.showmindform);
+    		this.showmindform = false;
+    		console.log(this.showmindform);
     	},
     },
 
     computed: {
+
     },
 
     mounted(){
     	this.getAllPosts();
     	setInterval(function () {
 	     	this.getAllPosts();
-	    }.bind(this), 300000);
+	     	// console.log(this.posts.comments[0].count);
+	    }.bind(this), 5000000);
+	    this.hideForm();
     },
     });

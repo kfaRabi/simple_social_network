@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="label label-primary">Login</h1>
+<h1 class="label label-success custom-heading">Login</h1>
 
 <hr>
 
@@ -21,7 +21,7 @@
 	</div>	
 	
 	<div class="form-group">
-		<button type="submit" class="btn btn-primary">Login</button>
+		<button type="submit" class="btn btn-success">Login</button>
 	</div>
 	
 	@include('layouts.errors')

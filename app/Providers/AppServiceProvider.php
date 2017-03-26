@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.sidebar', function($view){
-            return $view->with('archaives', \App\Post::archaives());
+            return $view->with('postsGroup', \App\Post::postsGroupedByMembers());
         });
     }
 

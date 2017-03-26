@@ -10,11 +10,6 @@
 	{{csrf_field()}}
 
 	<div class="form-group">
-		<label for="title">Post Title</label>
-		<input type="text" class="form-control" name="title">
-	</div>
-
-	<div class="form-group">
 		<label for="body">Post Body</label>
 		<textarea type="text" class="form-control" name="body"></textarea>
 	</div>
