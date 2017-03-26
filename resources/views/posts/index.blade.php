@@ -2,8 +2,8 @@
 
 @section('status_form')
 	{{-- <p>Just Some Dummy Header</p> --}}
-<div v-show="showmindform">
-<form method="POST" action="/posts">
+<div id="hideshowform">
+<form method="POST" action="/posts" v-if="showform">
 		{{csrf_field()}}
     <div class="blog-header">
       <div class="container">
@@ -14,7 +14,7 @@
 			 </div>
 			  <div class="panel-footer">
 					<button type="submit" class="btn btn-success">Publish</button>
-					<a style="padding:0; margin: 0;color:gray" class="pull-right" v-on:click='hideForm'>leave me alone</a>
+					<a style="padding:0; margin: 0;color:gray" class="pull-right" @click="hideForm">leave me alone</a>
 			  </div>
 		</div>
       </div> 

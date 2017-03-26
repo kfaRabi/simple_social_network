@@ -88,14 +88,23 @@ Vue.component('posts-list',{
 });
 
 // var vapp = new Vue({
-// 	el: "#test",
-
+// 	el: "#hideshowform",
+// 	data: {
+//         showform: true,
+//         showerror: true,
+//     },
+    
+//     methods: {
+//     	hideForm(){
+//     		this.showform = false;
+//     	},
+//     },
 // });
 
 new Vue({
     el: '#root',
     data: {
-        showmindform: true,
+        showoform: true,
         posts: [],
         carbon_strings: [],
         link: '',
@@ -119,9 +128,7 @@ new Vue({
     		console.log(window.location.href);
     	},
     	hideForm(){
-    		console.log(this.showmindform);
-    		this.showmindform = false;
-    		console.log(this.showmindform);
+    		this.showform = false;
     	},
     },
 
@@ -135,6 +142,5 @@ new Vue({
 	     	this.getAllPosts();
 	     	// console.log(this.posts.comments[0].count);
 	    }.bind(this), 5000000);
-	    this.hideForm();
     },
     });
