@@ -11,11 +11,11 @@
 
 	<div class="form-group">
 		<label for="body">Post Body</label>
-		<input type="text" class="form-control" name="body" value="{{$post->body}}"></input>
+		<textarea id = "post_body" type="text" class="form-control" name="body"> {{$post->body}} </textarea>
 	</div>
 	
 	<div class="form-group">
-		<button type="submit" class="btn btn-primary">Publish</button>
+		<button @click = "editPost($event, {{$post->id}})" type="submit" class="btn btn-primary">Publish</button>
 	</div>
 	
 	@include('layouts.errors')

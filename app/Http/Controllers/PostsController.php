@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('auth')->only(['store', 'destroy','edit', 'update']);
+        $this->middleware('auth')->only(['store','edit']);
     }
 
     /**
@@ -169,11 +169,13 @@ class PostsController extends Controller
             $post->body = request('body');
             $post->save();
             session()->flash('message', ['Your post has been successfully updated', 'success']);
-            return redirect('/posts/'.$post->id);
+            return "success";
+            // return ["Your post has benn successfully updated", 'success'];
         }
         else{
             session()->flash('message', ['You don not have the permissons to edit this post', 'danger']);
-            return redirect('/posts/'.$post->id);
+            return "failure";
+            // return ['You don not have the permissons to edit this post', 'danger'];
         }
     }
 
@@ -189,11 +191,11 @@ class PostsController extends Controller
             $post->comments()->delete();
             $post->delete();
             session()->flash('message', ['Your post wass successfully deleted', 'success']);
-            return redirect('/');
+            return "success";
         }
         else{
             session()->flash('message', ['Sorry, You have to be the owner of the post to delete it','warning']);
-            return redirect()->back();
+            return "failure";
         }
     }
 }
