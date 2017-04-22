@@ -38,7 +38,6 @@ class PostsController extends Controller
 
         // $archaives = Post::archaives();
 
-        // pass all the posts to the view and return the view
         return view('posts.index');
         // return view('posts.index', compact('posts'));
 
@@ -91,7 +90,7 @@ class PostsController extends Controller
 
         //best & shortest way when there were no user:
         //must add protected $fillable or $guarded varible in the model
-        //still possible with user, but have get the id using auth()->user()->id manually and pass it
+        //still possible with user, but to have get the id using auth()->user()->id manually and pass it
         //Post::create(request(['title', 'body']));
 
 

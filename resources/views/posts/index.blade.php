@@ -1,13 +1,11 @@
 @extends('layouts.master')
 
 @section('status_form')
-	{{-- <p>Just Some Dummy Header</p> --}}
-{{-- <div id="hideshowform"> --}}
 
 @include('layouts.messages')
 
 <form method="POST" action="/posts" v-if="showform">
-		{{csrf_field()}}
+	{{csrf_field()}}
     <div class="blog-header">
       <div class="container">
         <div class="panel panel-success">
@@ -23,23 +21,18 @@
       </div> 
     </div>
 </form>
-{{-- </div> --}}
+
 @endsection
 
 
 @section('content')
 
-	{{-- @foreach ($posts as $post)
-		@include("posts.partials.single_post")
-	@endforeach --}}
-
-{{-- 	<nav class="blog-pagination">
-		<a class="btn btn-outline-primary" href="#">Older</a>
-		<a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-	</nav> --}}
 	@include("posts.partials.all_posts")
+
 @endsection
 
 @section('sidebar')
+
 	@include('layouts.sidebar')
+	
 @stop

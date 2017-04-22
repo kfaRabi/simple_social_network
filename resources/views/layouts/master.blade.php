@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,43 +22,37 @@
   </head>
 
   <body>
-<div id="root" style="position: relative;">
-    {{-- <div class="focus-on-that"></div> --}}
-    @include('layouts.nav')
+    <div id="root" style="position: relative;">
+    
+        @include('layouts.nav')
 
-    @yield('status_form')
+        @yield('status_form')
 
-    <div class="container" >
-     
-      <div class="row">
+        <div class="container" >
+         
+          <div class="row">
 
-          <div class="col-md-9 blog-main">
+              <div class="col-md-9 blog-main">
 
-            @yield('content')
-          
+                @yield('content')
+              
+              </div>
+
+              {{-- @yield('sidebar') --}}
+
+                @include('layouts.sidebar')
+
           </div>
 
-          {{-- @yield('sidebar') --}}
-
-            @include('layouts.sidebar')
-
-      </div>
-
+        </div>
+            @include('layouts.footer');
     </div>
-        @include('layouts.footer');
-</div>
-  <script src="/js/moment.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src = "https://unpkg.com/vue"></script>
-  <script src = "/js/app.js"></script>
-  <script>
-    // alert(moment());
-  </script>
-
-{{--     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="/js/bootstrap.min.js"></script> --}}
+      <script src="/js/moment.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src = "https://unpkg.com/vue"></script>
+      <script src = "/js/app.js"></script>
+      <script>
+        // alert(moment());
+      </script>
   </body>
-
 </html>

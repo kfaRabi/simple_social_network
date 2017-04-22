@@ -14,11 +14,6 @@
           </a>
           <span class="badge">  {{$group->count}} </span>
         </li>
-{{--         <li>
-          <a href="/?userid={{  $group->user_id }}">
-            {{  App\User::find($group->user_id)->name }} &nbsp <i>({{  $group->count }})</i>
-          </a>
-        </li> --}}
       @endforeach
     </ul>
   </div>

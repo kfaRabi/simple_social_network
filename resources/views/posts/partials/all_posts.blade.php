@@ -1,7 +1,7 @@
 
  <div>
  	<posts-list>
-		{{-- <single-post v-for="(post, ind) in posts" :post_id = "post.id" :url= '"/posts/" + post.id' :userid= '"/?userid=" + post.user.id' :loged_in_user_id = "{{auth()->user()->id}}" :post_body="post.body" ref="test"> --}}
+ 	
 		<single-post v-for="(post, ind) in posts" :post_id = "post.id" :url= '"/posts/" + post.id' :userid= 'post.user.id' :loged_in_user_id = "{{auth()->check()?auth()->user()->id:0}}" :post_body="post.body" ref="test">
 			<template slot="username"> @{{post.user.name}} </template>
 			<template slot="createdat"> @{{carbon_strings[ind]}} </template>

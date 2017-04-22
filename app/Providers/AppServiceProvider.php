@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(1000);
+        Schema::defaultStringLength(500);
         view()->composer('layouts.sidebar', function($view){
             return $view->with('postsGroup', \App\Post::postsGroupedByMembers());
         });
