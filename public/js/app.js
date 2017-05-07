@@ -14,7 +14,7 @@ Vue.component('single-post',{
 	template: `
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-			    <h3 class="panel-title force-inline"><a class="add-textdec" :href='"/?userid=" + userid'><slot name = "username">Dummy Name</slot></a></h3>
+			    <h3 class="panel-title force-inline"><a class="add-textdec" @click="$event.preventDefault()" :href='"/all-posts?userid=" + userid'><slot name = "username">Dummy Name</slot></a></h3>
 			    <span class="post-meta pull-right"><slot name = "createdat">Date Not Found</slot></span>
 			 </div>
 			 <div class="panel-body">
@@ -117,14 +117,28 @@ var app = new Vue({
         keepshowing: true,
         emnird: false,
     	post_body: "",
+    	passed_param: "",
     },
     
     methods: {
     	getLink(){
-    		this.link = window.location.href;
-    		if(this.link.includes("userid")){
-    			var pos = this.link.indexOf("?", 10);
-    			this.link = "/all-posts/" + this.link.substring(pos, this.link.length);
+    		// this.link = window.location.href;
+    		// if(this.link.includes("all-posts")){
+    		// 	var pos = this.link.indexOf("all-posts");
+    		// 	pos--;
+    		// 	this.link = "/all-posts" + this.link.substring(pos, this.link.length);
+    		// 	console.log(this.link);
+    		// 	// this.link = "/all-posts"
+    		// 	this.showform = false;
+    		// }
+    		// else{
+    		// 	this.link = "/all-posts";
+    		// }
+
+    		if(this.passed_param.length > 5){
+    			this.link = this.passed_param;
+    			console.log(this.link);
+    			// this.link = "/all-posts"
     			this.showform = false;
     		}
     		else{
@@ -158,7 +172,7 @@ var app = new Vue({
 				if(response.data == 'failure')
 					location.reload();
 				else if(response.data == 'success')
-					document.location = 'http://127.0.0.1:8000';
+					document.location = 'http://ssn-kazi-rabi.c9users.io/';
 			}).catch(errors => {
 				console.log(errors);
 			});
@@ -178,10 +192,15 @@ var app = new Vue({
 				if(response.data == 'failure')
 					location.reload();
 				else if(response.data == 'success')
-					document.location = 'http://127.0.0.1:8000/posts/' + id;
+					document.location = 'http://ssn-kazi-rabi.c9users.io/posts/' + id;
 			}).catch(errors => {
 				console.log(errors.data);
 			});
+    	},
+    	loadPostGroup(userId, e){
+    		e.preventDefault();
+    		this.passed_param = "/all-posts?userid="+userId;
+    		this.getAllPosts();
     	},
     	ret(){
     		return this.emniemni;
@@ -198,7 +217,7 @@ var app = new Vue({
     	this.getAllPosts();
     	setInterval(function () {
 	     	this.getAllPosts();
-	    }.bind(this), 10000000);
+	    }.bind(this), 5000);
 	    // Event.$on("postSaved", () => {
 	    // 	keepshowing = true;
 	    // });

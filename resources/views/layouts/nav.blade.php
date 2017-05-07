@@ -2,7 +2,7 @@
   <div class="container">
     <nav class="nav blog-nav">
       <div class=" nav-link pull-left">
-      <a class="nav-link" href="http://127.0.0.1:8000/">
+      <a class="nav-link" href="{{url('/')}}">
         <span class="glyphicon glyphicon-home"></span>
         <span>Home</span>
       </a>

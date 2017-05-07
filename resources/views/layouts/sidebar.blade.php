@@ -9,7 +9,7 @@
       <h3 class="list-group-item active">Post Groups</h3>
       @foreach ($postsGroup as $group)
         <li class="list-group-item">
-          <a href="/?userid={{  $group->user_id }}">
+          <a href="/all-posts?userid={{  $group->user_id }}" @click='loadPostGroup("{{$group->user_id}}", $event)'>
             <i style="font-size: 12px" >{{  App\User::find($group->user_id)->name }}</i>
           </a>
           <span class="badge">  {{$group->count}} </span>

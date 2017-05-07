@@ -346,7 +346,7 @@ if (! function_exists('database_path')) {
      */
     function database_path($path = '')
     {
-        return app()->databasePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->databasePath($path);
     }
 }
 
@@ -574,7 +574,7 @@ if (! function_exists('mix')) {
         }
 
         if (file_exists(public_path($manifestDirectory.'/hot'))) {
-            return new HtmlString("http://localhost:8080{$path}");
+            return new HtmlString("//localhost:8080{$path}");
         }
 
         if (! $manifest) {
@@ -702,7 +702,7 @@ if (! function_exists('resource_path')) {
      */
     function resource_path($path = '')
     {
-        return app()->resourcePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->resourcePath($path);
     }
 }
 
